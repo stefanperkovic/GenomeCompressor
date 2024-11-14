@@ -9,6 +9,7 @@
  *  Compress or expand a genomic sequence using a 2-bit code.
  ******************************************************************************/
 
+
 /**
  *  The {@code GenomeCompressor} class provides static methods for compressing
  *  and expanding a genomic sequence using a 2-bit code.
@@ -24,11 +25,31 @@ public class GenomeCompressor {
      * { A, C, T, G } from standard input; compresses and writes the results to standard output.
      */
     public static void compress() {
-
-
-
-        // TODO: complete the compress() method
-
+        while (!BinaryStdIn.isEmpty()){
+            char nucleotide = BinaryStdIn.readChar();
+            switch (nucleotide){
+                // Writes A as 00
+                case 'A':
+                    BinaryStdOut.write(false);
+                    BinaryStdOut.write(false);
+                    break;
+                // Writes C as 01
+                case 'C':
+                    BinaryStdOut.write(false);
+                    BinaryStdOut.write(true);
+                    break;
+                // Writes G as 10
+                case 'G':
+                    BinaryStdOut.write(true);
+                    BinaryStdOut.write(false);
+                    break;
+                // Writes T as 11
+                case 'T':
+                    BinaryStdOut.write(true);
+                    BinaryStdOut.write(true);
+                    break;
+            }
+        }
         BinaryStdOut.close();
     }
 
