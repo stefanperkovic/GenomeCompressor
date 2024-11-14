@@ -25,6 +25,8 @@ public class GenomeCompressor {
      */
     public static void compress() {
 
+
+
         // TODO: complete the compress() method
 
         BinaryStdOut.close();
