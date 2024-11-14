@@ -27,6 +27,7 @@ public class GenomeCompressor {
     public static void compress() {
         while (!BinaryStdIn.isEmpty()){
             char nucleotide = BinaryStdIn.readChar();
+            System.out.println("Compressing nucleotide: " + nucleotide);
             switch (nucleotide){
                 // Writes A as 00
                 case 'A':
@@ -57,8 +58,26 @@ public class GenomeCompressor {
      * Reads a binary sequence from standard input; expands and writes the results to standard output.
      */
     public static void expand() {
+        // Reads two bits at a time and decodes each into a nucleotide
+        while(!BinaryStdIn.isEmpty()){
+            boolean bit1 = BinaryStdIn.readBoolean();
+            boolean bit2 = BinaryStdIn.readBoolean();
 
-        // TODO: complete the expand() method
+            if(!bit1 && !bit2){
+                BinaryStdOut.write('A');
+            }
+            else if (!bit1 && bit2) {
+                BinaryStdOut.write('C');
+            }
+            else if (bit1 && !bit2) {
+                BinaryStdOut.write('G');
+            }
+            else if (bit1 && bit2){
+                BinaryStdOut.write('T');
+            }
+
+            System.out.println("Decoded bits: " + bit1 + " " + bit2);
+        }
 
         BinaryStdOut.close();
     }
