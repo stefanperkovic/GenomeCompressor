@@ -25,31 +25,46 @@ public class GenomeCompressor {
      * { A, C, T, G } from standard input; compresses and writes the results to standard output.
      */
     public static void compress() {
+
+        String sequence = BinaryStdIn.readString();
+        int length = sequence.length();
+        BinaryStdOut.write(length);
+
+        int[] map = new int[256];
+        map['A'] = 0b00;
+        map['C'] = 0b01;
+        map['G'] = 0b10;
+        map['T'] = 0b11;
+
         while (!BinaryStdIn.isEmpty()){
             char nucleotide = BinaryStdIn.readChar();
             System.out.println("Compressing nucleotide: " + nucleotide);
-            switch (nucleotide){
-                // Writes A as 00
-                case 'A':
-                    BinaryStdOut.write(false);
-                    BinaryStdOut.write(false);
-                    break;
-                // Writes C as 01
-                case 'C':
-                    BinaryStdOut.write(false);
-                    BinaryStdOut.write(true);
-                    break;
-                // Writes G as 10
-                case 'G':
-                    BinaryStdOut.write(true);
-                    BinaryStdOut.write(false);
-                    break;
-                // Writes T as 11
-                case 'T':
-                    BinaryStdOut.write(true);
-                    BinaryStdOut.write(true);
-                    break;
-            }
+            BinaryStdOut.write(map[nucleotide], 2);
+
+
+//            switch (nucleotide){
+//                // Writes A as 00
+//                case 'A':
+//                    BinaryStdOut.write(false);
+//                    BinaryStdOut.write(false);
+//                    BinaryStdOut.write(0,2);
+//                    break;
+//                // Writes C as 01
+//                case 'C':
+//                    BinaryStdOut.write(false);
+//                    BinaryStdOut.write(true);
+//                    break;
+//                // Writes G as 10
+//                case 'G':
+//                    BinaryStdOut.write(true);
+//                    BinaryStdOut.write(false);
+//                    break;
+//                // Writes T as 11
+//                case 'T':
+//                    BinaryStdOut.write(true);
+//                    BinaryStdOut.write(true);
+//                    break;
+//            }
         }
         BinaryStdOut.close();
     }
@@ -58,9 +73,17 @@ public class GenomeCompressor {
      * Reads a binary sequence from standard input; expands and writes the results to standard output.
      */
     public static void expand() {
+
+        int[] map = new int[256];
+        map[0b00] = 'A';
+        map[0b01] = 'C';
+        map[0b10] = 'G';
+        map[0b11] = 'T';
+
+
         // Reads two bits at a time and decodes each into a nucleotide
         while(!BinaryStdIn.isEmpty()){
-            boolean bit1 = BinaryStdIn.readBoolean();
+            boolean bit1 = BinaryStdIn.readInt(2);
             boolean bit2 = BinaryStdIn.readBoolean();
 
             if(!bit1 && !bit2){
